@@ -9,10 +9,18 @@ import Foundation
 
 // 1. Реализовать свой тип коллекции «очередь» (queue) c использованием дженериков.
 
-struct Book {
+protocol HasValue {
+    var value: String { get }
+}
+
+struct Book: HasValue {
     let title: String
     let author: String
     let publishingYear: Int
+    
+    var value: String {
+        return title
+    }
 }
 
 var books: [Book]?
@@ -51,8 +59,6 @@ struct Queue<T> {
     }
 }
 
-var arrayOfBooks = Queue(items: [books])
-arrayOfBooks.enqueue(element: [])
 
 let book1 = Book(title: "Steve Jobs", author: "Walter Isaacson", publishingYear: 2005)
 
@@ -66,6 +72,17 @@ myBooks.enqueue(element: book2)
 myBooks.enqueue(element: book3)
 // print(myBooks)
 print(myBooks.bookAfter2006())
+
+
+func findBookIndex<T: Equatable>(ofBook valueToFind: T, in array: [T]) -> Int? {
+    
+    for (index, value) in array.enumerated() {
+        if value == valueToFind {
+            return index
+        }
+    }
+    return nil
+}
 
 
 
